@@ -1,0 +1,17 @@
+name: "Hello World"
+
+# This workflow is triggered when a push is made to the master or production branch
+on: # this on key helps to define the events that trigger the workflow
+  push:
+    branches:
+      - master
+      - production
+
+# This workflow has one job called build
+jobs:
+  build: # this jobs key helps to define the jobs that run in the workflow
+    runs-on: ubuntu-latest # this runs-on key helps to define the runner that runs the job
+    steps: # this steps key helps to define the steps that run in the job
+      - uses: actions/checkout@v4 # this uses key helps to define the action that runs in the step
+      - name: "Print Hello World" # this name key helps to define the name of the step
+        run: echo  "Hello, world!" # this run key helps to define the script that runs in the step 
