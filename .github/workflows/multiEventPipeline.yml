@@ -1,0 +1,67 @@
+name: "Multi Event Pipeline / workflow "
+
+# this workflow is triggered when a push is made to the master, production or test branch
+# this workflow is triggered when a pull request is made to the master, production or test branch
+# this workflow is triggered when a workflow_dispatch is made to the master, production or test branch
+on:
+  push: # this push key helps to define the events that trigger the workflow
+    branches:
+      - master
+      - production
+      - test    
+  pull_request:  # this pull_request key helps to define the events that trigger the workflow
+    branches:
+      - master
+    types:
+      - closed
+      - opened  
+  workflow_dispatch: # this workflow_dispatch key helps to define the events that trigger the workflow 
+  schedule:
+    - cron: "0 10 * * 2,4,6" # this schedule key helps to define the schedule that triggers the workflow    
+
+# this workflow is triggered when a push is made to the master, production or test branch
+# this workflow is triggered when a pull request is made to the master, production or test branch
+# this workflow is triggered when a workflow_dispatch is made to the master, production or test branch
+
+jobs:
+  on-push:
+    if: github.event_name == 'push' 
+    runs-on: ubuntu-latest
+    steps:
+      - name: "Running on push event"
+        run: echo  "Running on push event" 
+        
+  on-schedule:
+    if: github.event_name == 'schedule' 
+    runs-on: ubuntu-latest
+    steps:
+      - name: "Running on schedule event"
+        run: echo  "Running on schedule event" 
+
+  on-pull-request:
+    if: github.event_name == 'pull_request' 
+    runs-on: ubuntu-latest
+    steps:
+      - name: "Running on pull request event"
+        run: echo  "Running on pull request event"    
+
+  on-pull-request-closed:
+    if: github.event_name == 'pull_request' && github.event.action == 'closed'
+    runs-on: ubuntu-latest
+    steps:
+      - name: "Running on pull request closed event"
+        run: echo  "Running on pull request closed event"
+
+  on-pull-request-opened:
+    if: github.event_name == 'pull_request' && github.event.action == 'opened'
+    runs-on: ubuntu-latest
+    steps:
+      - name: "Running on pull request opened event"
+        run: echo  "Running on pull request opened event"
+
+  on-workflow-dispatch:
+    if: github.event_name == 'workflow_dispatch' 
+    runs-on: ubuntu-latest
+    steps:
+      - name: "Running on workflow dispatch event"
+        run: echo  "Running on workflow dispatch event"  
